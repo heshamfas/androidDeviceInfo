@@ -1,4 +1,4 @@
-package com.heshamfas.device.myapplication;
+package com.heshamfas.device.device_info;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

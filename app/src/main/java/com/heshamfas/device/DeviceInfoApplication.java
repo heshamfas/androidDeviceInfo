@@ -1,34 +1,62 @@
-package com.heshamfas.device.myapplication;
+package com.heshamfas.device;
 
+import android.app.Application;
+import android.content.Context;
 import android.content.res.Configuration;
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
+import android.util.AndroidRuntimeException;
 import android.util.DisplayMetrics;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.TextView;
+import android.view.WindowManager;
 
 import java.util.Locale;
 
+;
+/**
+ * Created by Hesham Fas on 6/12/15.
+ */
 
-public class DeviceActivity extends ActionBarActivity {
-    TextView deviceInfoTV;
+public class DeviceInfoApplication extends Application{
+
+    private static DeviceInfoApplication INSTANCE;
+    public static int screenSmallestWidthDp;
+    public static int screenWidthDp ;
+    public static int screenHeightDp;
+    public static int screenOrientation;
+    public static int screenSize;
+    public static int densityDpi;
+    public static int displayWidth ;
+    public static int displayHeight;
+    public static float displayDensityX ;
+    public static float displayDensityY;
+    public static int   mobileCountryCode ;
+    public static int   mobileNetworkCode ;
+    public static Locale deviceLocale ;
+
+    public static String screenLayoutSize;
+    public static String screenOrientationString = "";
+    public static String displayDensityXString ="" ;
+    public static String displayDensityYString="" ;
+    public static String   mobileCountryCodeString ="" ;
+    public static String   mobileNetworkCodeString ="" ;
+    public static String deviceLocaleString  ="" ;
+    public static String  screenDensityDpi;
+    public static String exactDeviceDensity= "";
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_device);
-        deviceInfoTV = (TextView)findViewById(R.id.infoTV);
-
-        /* configuration */
+    public void onCreate() {
+        super.onCreate();
+          /* configuration */
         Configuration configuration = getResources().getConfiguration();
-        int screenSmallestWidthDp = configuration.smallestScreenWidthDp;
-        int screenWidthDp = configuration.screenWidthDp;
-        int screenHeightDp = configuration.screenHeightDp;
-        int screenOrientation = configuration.orientation;
-        int screenSize = configuration.screenLayout & configuration.SCREENLAYOUT_SIZE_MASK;
-        String screenLayoutSize;
-        switch (screenSize) {
 
+        screenSmallestWidthDp = configuration.smallestScreenWidthDp;
+        screenWidthDp = configuration.screenWidthDp;
+        screenHeightDp = configuration.screenHeightDp;
+        screenOrientation = configuration.orientation;
+        screenSize = configuration.screenLayout & configuration.SCREENLAYOUT_SIZE_MASK;
+
+
+
+        switch (screenSize) {
             case Configuration.SCREENLAYOUT_SIZE_UNDEFINED:
                 screenLayoutSize = "undefined";
                 break;
@@ -49,7 +77,7 @@ public class DeviceActivity extends ActionBarActivity {
                 break;
         }
         //String screenCofinString = getResources().getConfiguration().toString();
-        String screenOrientationString = "";
+
         switch (screenOrientation){
             case Configuration.ORIENTATION_LANDSCAPE:
                 screenOrientationString = "Landscape";
@@ -61,11 +89,12 @@ public class DeviceActivity extends ActionBarActivity {
                 screenOrientationString = "Undefined";
                 break;
         }
-        screenOrientationString = String.format("screen orientation = %s \n\n" , screenOrientationString);
+        String screenOrientationLongString = String.format("screen orientation = %s \n\n" , screenOrientationString);
 
         /* display metrics */
         DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        WindowManager windowManager = (WindowManager)getSystemService(Context.WINDOW_SERVICE);
+        windowManager.getDefaultDisplay().getMetrics(displayMetrics);
         float diplayDensity= displayMetrics.density;
 
         String exactDeviceDensity= String.format("Logical display density = %s \n\n", diplayDensity);
@@ -86,7 +115,7 @@ public class DeviceActivity extends ActionBarActivity {
         String   mobileNetworkCodeString = String.format("mobile network code = %s \n\n",mobileNetworkCode);
         String deviceLocaleString  = String.format("Locale = %s \n\n ",deviceLocale.toString());
 
-        String  screenDensityDpi;
+
         switch (displayMetrics.densityDpi){
             case DisplayMetrics.DENSITY_LOW:
                 screenDensityDpi = String.format("screenDensityDpi = %s %s\n\n",DisplayMetrics.DENSITY_LOW ,"low density");
@@ -122,50 +151,13 @@ public class DeviceActivity extends ActionBarActivity {
                 screenDensityDpi= displayMetrics.densityDpi +"unDefined \n\n";
                 break;
         }
-
-
-
-        /* displaying info */
-        StringBuilder builder = new StringBuilder("");
-        builder.append(String.format("display density DPI     = %s \n\n",densityDpi));
-        builder.append(String.format("display Width Px  = %s \n\n",displayWidth));
-        builder.append(String.format("display Height Px = %s \n\n",displayHeight));
-        builder.append(String.format("screen Width in DP  = %s \n\n", screenWidthDp));
-        builder.append(String.format("screen Height in DP = %s \n\n", screenHeightDp));
-        builder.append(String.format("smallest Screen Width Dp = %s \n\n",screenSmallestWidthDp));
-        builder.append(String.format("screen Layout Size = %s \n\n", screenLayoutSize));
-        builder.append(screenDensityDpi);
-        builder.append(exactDeviceDensity);
-        builder.append(screenOrientationString);
-        builder.append(displayDensityXString) ;
-        builder.append(displayDensityYString) ;
-        builder.append(mobileCountryCodeString);
-        builder.append(mobileNetworkCodeString) ;
-        builder.append(deviceLocaleString);
-        /*builder.append(String.format("screenCofinString = %s \n",screenCofinString));*/
-        deviceInfoTV.setText(builder.toString());
-
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_device, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    public static DeviceInfoApplication getInstance(){
+            if (INSTANCE == null) {
+                throw new AndroidRuntimeException("com.heshamfas.device.DeviceInfoApplication was not initialized");
+            }
+            return INSTANCE;
         }
-
-        return super.onOptionsItemSelected(item);
     }
-}
+
