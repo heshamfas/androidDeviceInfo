@@ -18,7 +18,9 @@ public class DimenGenerator {
         StringBuilder builder = new StringBuilder("");
         builder.append(generateFileHead());
         builder.append(getWidthDimens());
-        builder.append(getHeightDimens());
+        //builder.append(getWidthDimens(1024)); //for nexus 9
+        builder.append((getHeightDimens()));
+        //builder.append(getHeightDimens(768)); //for nexus 9
         builder.append(generateFileEnd());
 
         return builder.toString();
@@ -32,10 +34,26 @@ public class DimenGenerator {
         }
         return builder.toString();
     }
+    private static String getWidthDimens(int widthDp){
+        StringBuilder builder = new StringBuilder("<!-- Width Percentages --> \n\n");
+        for(int i = 1; i<= 100; i++){
+            int dimen = (int) ((i*widthDp)/100);
+            builder.append(String.format("<dimen name=\"width_percent_%s\">%s</dimen> \n\n",i, dimen));
+        }
+        return builder.toString();
+    }
     private static String getHeightDimens(){
         StringBuilder builder = new StringBuilder("\n\n <!-- Height Percentages --> \n\n");
         for(int i = 1; i<= 100; i++){
             int dimen = (int) ((i*deviceHeight)/100);
+            builder.append(String.format("<dimen name=\"height_percent_%s\">%s</dimen> \n\n",i, dimen));
+        }
+        return builder.toString();
+    }
+    private static String getHeightDimens(int heightDp){
+        StringBuilder builder = new StringBuilder("\n\n <!-- Height Percentages --> \n\n");
+        for(int i = 1; i<= 100; i++){
+            int dimen = (int) ((i* heightDp)/100);
             builder.append(String.format("<dimen name=\"height_percent_%s\">%s</dimen> \n\n",i, dimen));
         }
         return builder.toString();

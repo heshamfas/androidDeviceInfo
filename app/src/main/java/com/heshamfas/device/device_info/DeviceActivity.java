@@ -129,7 +129,7 @@ public class DeviceActivity extends ActionBarActivity {
         StringBuilder builder = new StringBuilder("");
         String dimenFileContents = DimenGenerator.generateDimenFile();
         builder.append(dimenFileContents);
-        FileManager.writeToExternalStorage(dimenFileContents );
+        FileManager.saveFile("dimen.xml",dimenFileContents );
         builder.append(String.format("display density DPI     = %s \n\n",densityDpi));
         builder.append(String.format("display Width Px  = %s \n\n",displayWidth));
         builder.append(String.format("display Height Px = %s \n\n",displayHeight));
