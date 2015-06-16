@@ -7,9 +7,11 @@ import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-
 import com.heshamfas.device.dimen.DimenGenerator;
+import com.heshamfas.device.*;
+import com.heshamfas.device.file_utils.FileManager;
 
+import java.io.File;
 import java.util.Locale;
 
 
@@ -125,7 +127,9 @@ public class DeviceActivity extends ActionBarActivity {
         }
         /* displaying info */
         StringBuilder builder = new StringBuilder("");
-        builder.append(DimenGenerator.generateDimenFile());
+        String dimenFileContents = DimenGenerator.generateDimenFile();
+        builder.append(dimenFileContents);
+        FileManager.writeToExternalStorage(dimenFileContents );
         builder.append(String.format("display density DPI     = %s \n\n",densityDpi));
         builder.append(String.format("display Width Px  = %s \n\n",displayWidth));
         builder.append(String.format("display Height Px = %s \n\n",displayHeight));

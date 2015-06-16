@@ -16,7 +16,8 @@ import java.util.Locale;
 
 public class DeviceInfoApplication extends Application{
 
-    private static DeviceInfoApplication INSTANCE;
+
+    private static DeviceInfoApplication INSTANCE ;
     public static int screenSmallestWidthDp;
     public static int screenWidthDp ;
     public static int screenHeightDp;
@@ -45,6 +46,7 @@ public class DeviceInfoApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
+        INSTANCE = DeviceInfoApplication.this;
           /* configuration */
         Configuration configuration = getResources().getConfiguration();
 
