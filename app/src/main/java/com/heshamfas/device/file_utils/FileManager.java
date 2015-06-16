@@ -23,38 +23,14 @@ public class FileManager {
 //nexus 9 is 1024 x 768 dp check when Ricardo comes back
     private static final String TAG = FileManager.class.getSimpleName();
     Context context = DeviceInfoApplication.getInstance().getApplicationContext();
-/*    public static boolean createExternalFile(String fileName, String contents) {
-        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-        File file = new File(path, fileName);
-       // file.createNewFile();
-*//*        if (!file.mkdirs()) {
-            Log.d("FileManager", "Directory Not Created");
-        }*//*
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream(file,true);
-            fileOutputStream.write(contents.getBytes());
-       *//*     OutputStreamWriter outputStreamWriter =
-            fileOutputStream.close();*//*
-            Log.d("FileManager", "file seems to be created ok");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            Log.e("FileManager", "FileNotFoundException " + e.getCause().toString());
-        } catch (IOException e) {
-            Log.e("FileManager", "IOException " + e.getCause().toString());
-            e.printStackTrace();
-        }
-
-        return true;
-    }*/
-
 
     // an attempt for template for loading files
-    public static String loadFile(){
+    public static String loadFile(String fileName){
         int data_block = 100;
         try {
             File sdcard = Environment.getExternalStorageDirectory();
             File directory = new File(sdcard.getAbsolutePath()+ "/MyDirectory");
-            File file = new File(directory,"textfile.txt");
+            File file = new File(directory,fileName);
             FileInputStream fis = new FileInputStream(file);
             InputStreamReader isr = new InputStreamReader(fis);
             char[] data = new char[data_block];
@@ -81,40 +57,10 @@ public class FileManager {
     }
 
 
-/*    public static boolean writeToExternalStorage(String content){
-        // write on SD card file data in the text box
-
-            getthis();
-            //tyringOneMoreTime();
-
-        try {
-            *//*File path = Environment.getExternalStorageDirectory();*//*
-            File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-            File dir = new File(path.getAbsolutePath()+ "/newDir");
-
-            File myFile = new File(dir, "newFile.txt");
-            myFile.createNewFile();
-            FileOutputStream fileOutputStream = new FileOutputStream(myFile);
-            OutputStreamWriter outputStreamWriter =
-                    new OutputStreamWriter(fileOutputStream);
-            outputStreamWriter.append(content);
-            outputStreamWriter.close();
-            fileOutputStream.close();
-            Log.d(TAG, "file seems to be created successfully");
-            Toast.makeText(DeviceInfoApplication.getInstance(),
-                    "Done writing SD 'mysdfile.txt'",
-                    Toast.LENGTH_LONG).show();
-        }  catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return true;
-    }*/
 
     public static void saveFile(String fileName, String contents){
         try {
-                                  //FileOutputStream fou = openFileOutput("text.txt", MODE_WORLD_READABLE);
+            //FileOutputStream fou = openFileOutput("text.txt", MODE_WORLD_READABLE);
             //File sdcard = Environment.getExternalStorageDirectory();
             File sdcard = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
             File directory = new File(sdcard.getAbsolutePath()+ "/DimenDirectory");

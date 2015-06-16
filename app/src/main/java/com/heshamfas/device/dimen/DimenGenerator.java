@@ -27,10 +27,10 @@ public class DimenGenerator {
     }
 
     private static String getWidthDimens(){
-        StringBuilder builder = new StringBuilder("<!-- Width Percentages --> \n\n");
+        StringBuilder builder = new StringBuilder("<!-- Width Percentages --> \n");
         for(int i = 1; i<= 100; i++){
             int dimen = (int) ((i*deviceWidth)/100);
-            builder.append(String.format("<dimen name=\"width_percent_%s\">%s</dimen> \n\n",i, dimen));
+            builder.append(String.format("<dimen name=\"width_percent_%s\">%sdp</dimen> \n",i, dimen));
         }
         return builder.toString();
     }
@@ -38,7 +38,7 @@ public class DimenGenerator {
         StringBuilder builder = new StringBuilder("<!-- Width Percentages --> \n\n");
         for(int i = 1; i<= 100; i++){
             int dimen = (int) ((i*widthDp)/100);
-            builder.append(String.format("<dimen name=\"width_percent_%s\">%s</dimen> \n\n",i, dimen));
+            builder.append(String.format("<dimen name=\"width_percent_%s\">%sdp</dimen> \n",i, dimen));
         }
         return builder.toString();
     }
@@ -46,7 +46,7 @@ public class DimenGenerator {
         StringBuilder builder = new StringBuilder("\n\n <!-- Height Percentages --> \n\n");
         for(int i = 1; i<= 100; i++){
             int dimen = (int) ((i*deviceHeight)/100);
-            builder.append(String.format("<dimen name=\"height_percent_%s\">%s</dimen> \n\n",i, dimen));
+            builder.append(String.format("<dimen name=\"height_percent_%s\">%sdp</dimen> \n",i, dimen));
         }
         return builder.toString();
     }
@@ -54,7 +54,7 @@ public class DimenGenerator {
         StringBuilder builder = new StringBuilder("\n\n <!-- Height Percentages --> \n\n");
         for(int i = 1; i<= 100; i++){
             int dimen = (int) ((i* heightDp)/100);
-            builder.append(String.format("<dimen name=\"height_percent_%s\">%s</dimen> \n\n",i, dimen));
+            builder.append(String.format("<dimen name=\"height_percent_%s\">%sdp</dimen> \n",i, dimen));
         }
         return builder.toString();
     }
