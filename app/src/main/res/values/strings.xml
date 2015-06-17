@@ -2,4 +2,7 @@
     <string name="app_name">Device Info</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_dimen_display">DimenDisplay</string>
+    <string name="title_activity_storage">StorageActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 </resources>

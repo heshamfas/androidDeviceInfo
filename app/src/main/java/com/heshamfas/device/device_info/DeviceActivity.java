@@ -1,24 +1,39 @@
 package com.heshamfas.device.device_info;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import com.heshamfas.device.dimen.DimenGenerator;
 import com.heshamfas.device.file_utils.FileManager;
+import com.heshamfas.device.file_utils.StorageActivity;
+
 import java.util.Locale;
 
 
 public class DeviceActivity extends ActionBarActivity {
     TextView deviceInfoTV;
+    Button gotoStorageActivityBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device);
         deviceInfoTV = (TextView)findViewById(R.id.infoTV);
+        gotoStorageActivityBtn = (Button)findViewById(R.id.btn_device_goto_storage);
+        gotoStorageActivityBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), StorageActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         /* configuration */
         Configuration configuration = getResources().getConfiguration();
@@ -126,8 +141,8 @@ public class DeviceActivity extends ActionBarActivity {
         StringBuilder builder = new StringBuilder("");
         String dimenFileContents = DimenGenerator.generateDimenFile();
         builder.append(dimenFileContents);
-        FileManager.saveFile("dimens.xml",dimenFileContents );
-        builder.append(String.format("display density DPI     = %s \n\n",densityDpi));
+        FileManager.saveFile("dimens.xml", dimenFileContents);
+        builder.append(String.format("display density DPI     = %s \n\n", densityDpi));
         builder.append(String.format("display Width Px  = %s \n\n",displayWidth));
         builder.append(String.format("display Height Px = %s \n\n",displayHeight));
         builder.append(String.format("screen Width in DP  = %s \n\n", screenWidthDp));
