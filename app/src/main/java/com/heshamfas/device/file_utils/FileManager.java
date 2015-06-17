@@ -2,11 +2,7 @@ package com.heshamfas.device.file_utils;
 
 import android.content.Context;
 import android.os.Environment;
-import android.util.Log;
-import android.widget.Toast;
-
 import com.heshamfas.device.DeviceInfoApplication;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

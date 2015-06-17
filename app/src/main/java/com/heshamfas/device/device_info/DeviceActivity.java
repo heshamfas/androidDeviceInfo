@@ -8,10 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import com.heshamfas.device.dimen.DimenGenerator;
-import com.heshamfas.device.*;
 import com.heshamfas.device.file_utils.FileManager;
-
-import java.io.File;
 import java.util.Locale;
 
 
