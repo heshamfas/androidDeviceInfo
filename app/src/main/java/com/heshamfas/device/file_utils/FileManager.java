@@ -1,7 +1,10 @@
 package com.heshamfas.device.file_utils;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Environment;
+import android.os.ParcelFileDescriptor;
+
 import com.heshamfas.device.DeviceInfoApplication;
 import java.io.File;
 import java.io.FileInputStream;
@@ -58,7 +61,7 @@ public class FileManager {
         try {
             //FileOutputStream fou = openFileOutput("text.txt", MODE_WORLD_READABLE);
             //File sdcard = Environment.getExternalStorageDirectory();
-            File sdcard = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+            File sdcard = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
             File directory = new File(sdcard.getAbsolutePath()+ "/DimenDirectory");
             directory.mkdirs();
             File file = new File(directory,fileName);
@@ -76,6 +79,19 @@ public class FileManager {
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();}
+    }
+
+    public static void writeFileCotnent(Context context,Uri uri, String content){
+        try{
+            ParcelFileDescriptor parcelFileDescriptor = context.getContentResolver().openFileDescriptor(uri, "w");
+            FileOutputStream fileOutputStream = new FileOutputStream(parcelFileDescriptor.getFileDescriptor());
+            fileOutputStream.write(content.getBytes());
+            fileOutputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
    /* public static void tyringOneMoreTime() throws IOException {
         Log.d(TAG, "What the heck is going on?????????");

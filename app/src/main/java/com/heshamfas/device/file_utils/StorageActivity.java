@@ -3,6 +3,7 @@ package com.heshamfas.device.file_utils;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -73,6 +74,13 @@ public class StorageActivity extends ActionBarActivity {
                 case OPEN_REQUEST_CODE:
                     break;
                 case SAVE_REQUEST_CODE:
+                    Uri fileUri = null;
+                    if(resultCode == Activity.RESULT_OK){
+                        if(data != null){
+                            fileUri = data.getData();
+                            FileManager.writeFileCotnent(this, fileUri, "this  is sample text");
+                        }
+                    }
                     break;
             }
         }
@@ -83,6 +91,8 @@ public class StorageActivity extends ActionBarActivity {
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.btn_storage_new:
+
+                    //Intent intent = new Intent()
                     Intent newIntent= new Intent(Intent.ACTION_CREATE_DOCUMENT);
                     newIntent.setType("text/plain");
                     newIntent.putExtra(Intent.EXTRA_TITLE, "newfile.txt");
@@ -91,6 +101,10 @@ public class StorageActivity extends ActionBarActivity {
                 case R.id.btn_storage_open:
                     break;
                 case R.id.btn_storage_save:
+                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                    intent.addCategory(Intent.CATEGORY_OPENABLE);
+                    intent.setType("text/plain");
+                    startActivityForResult(intent,SAVE_REQUEST_CODE);
                     break;
             }
         }

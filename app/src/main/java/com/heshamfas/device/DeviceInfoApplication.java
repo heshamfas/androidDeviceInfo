@@ -47,9 +47,8 @@ public class DeviceInfoApplication extends Application{
     public void onCreate() {
         super.onCreate();
         INSTANCE = DeviceInfoApplication.this;
-          /* configuration */
+/*          *//* configuration *//*
         Configuration configuration = getResources().getConfiguration();
-
         screenSmallestWidthDp = configuration.smallestScreenWidthDp;
         screenWidthDp = configuration.screenWidthDp;
         screenHeightDp = configuration.screenHeightDp;
@@ -93,7 +92,7 @@ public class DeviceInfoApplication extends Application{
         }
         String screenOrientationLongString = String.format("screen orientation = %s \n\n" , screenOrientationString);
 
-        /* display metrics */
+        *//* display metrics *//*
         DisplayMetrics displayMetrics = new DisplayMetrics();
         WindowManager windowManager = (WindowManager)getSystemService(Context.WINDOW_SERVICE);
         windowManager.getDefaultDisplay().getMetrics(displayMetrics);
@@ -110,7 +109,7 @@ public class DeviceInfoApplication extends Application{
         Locale deviceLocale = configuration.locale;
 
 
-        /* building configuration strings */
+        *//* building configuration strings *//*
         String displayDensityXString = String.format("display dinsity x = %s \n\n",displayDensityX );
         String displayDensityYString= String.format("display Density y = %s \n\n",displayDensityY);
         String   mobileCountryCodeString = String.format("mobile Country code = %s \n\n",mobileCountryCode);
@@ -152,7 +151,7 @@ public class DeviceInfoApplication extends Application{
             default:
                 screenDensityDpi= displayMetrics.densityDpi +"unDefined \n\n";
                 break;
-        }
+        }*/
     }
 
     public static DeviceInfoApplication getInstance(){

@@ -2,6 +2,7 @@ package com.heshamfas.device.device_info;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.NetworkOnMainThreadException;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -18,24 +19,62 @@ import java.util.Locale;
 
 
 public class DeviceActivity extends ActionBarActivity {
-    TextView deviceInfoTV;
+    TextView displayInfoTV;
     Button gotoStorageActivityBtn;
+    Button dimenInfoBtn;
+    Button deviceInfoBtn;
+    Button saveInfoBtn;
+    boolean fileSelectorAvailable;
+    String dimenFileContents = "";
+    String deviceIfnoFileContents = "";
+    CurrentDisplay currentDisplay = CurrentDisplay.NONE;
+    enum CurrentDisplay{
+        NONE,
+        DEVICE_INFO,
+        DIMEN_INFO
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device);
-        deviceInfoTV = (TextView)findViewById(R.id.infoTV);
+        fileSelectorAvailable = getResources().getBoolean(R.bool.bool_file_descriptor_enabled);
+        displayInfoTV = (TextView)findViewById(R.id.infoTV);
         gotoStorageActivityBtn = (Button)findViewById(R.id.btn_device_goto_storage);
-        gotoStorageActivityBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), StorageActivity.class);
-                startActivity(intent);
-            }
-        });
+        dimenInfoBtn = (Button) findViewById(R.id.btn_dimen_info);
+        deviceInfoBtn = (Button) findViewById(R.id.btn_device_info) ;
+        saveInfoBtn = (Button) findViewById(R.id.btn_save_info);
+        gotoStorageActivityBtn.setOnClickListener(onClickListener);
+        dimenInfoBtn.setOnClickListener(onClickListener);
+        deviceInfoBtn.setOnClickListener(onClickListener);
 
+           }
 
-        /* configuration */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_device, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    private void showDimenInfo(){
+        dimenFileContents = DimenGenerator.generateDimenFile();
+        displayInfoTV.setText(dimenFileContents);
+        currentDisplay = CurrentDisplay.DIMEN_INFO;
+    }
+    private void showDeviceInfo(){
         Configuration configuration = getResources().getConfiguration();
         int screenSmallestWidthDp = configuration.smallestScreenWidthDp;
         int screenWidthDp = configuration.screenWidthDp;
@@ -139,9 +178,7 @@ public class DeviceActivity extends ActionBarActivity {
         }
         /* displaying info */
         StringBuilder builder = new StringBuilder("");
-        String dimenFileContents = DimenGenerator.generateDimenFile();
-        builder.append(dimenFileContents);
-        FileManager.saveFile("dimens.xml", dimenFileContents);
+
         builder.append(String.format("display density DPI     = %s \n\n", densityDpi));
         builder.append(String.format("display Width Px  = %s \n\n",displayWidth));
         builder.append(String.format("display Height Px = %s \n\n",displayHeight));
@@ -158,28 +195,28 @@ public class DeviceActivity extends ActionBarActivity {
         builder.append(mobileNetworkCodeString) ;
         builder.append(deviceLocaleString);
         /*builder.append(String.format("screenCofinString = %s \n",screenCofinString));*/
-        deviceInfoTV.setText(builder.toString());
-
+        deviceIfnoFileContents = builder.toString();
+        displayInfoTV.setText(deviceIfnoFileContents);
+        currentDisplay = CurrentDisplay.DEVICE_INFO;
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_device, menu);
-        return true;
+    private void saveToDevice(){
+        FileManager.saveFile("dimens.xml", dimenFileContents);
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.btn_device_goto_storage:
+                    Intent intent = new Intent(getBaseContext(), StorageActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.btn_dimen_info:
+                    showDimenInfo();
+                    break;
+                case R.id.btn_device_info:
+                    showDeviceInfo();
+                    break;
+            }
         }
-        return super.onOptionsItemSelected(item);
-    }
+    };
 }
