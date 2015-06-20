@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.heshamfas.device.device_info.R;
 
@@ -79,7 +80,10 @@ public class StorageActivity extends ActionBarActivity {
                         if(data != null){
                             fileUri = data.getData();
                             FileManager.writeFileCotnent(this, fileUri, "this  is sample text");
+                            Toast.makeText(StorageActivity.this, "Storage Created Successfully ", Toast.LENGTH_LONG).show();
                         }
+                    }else{
+                        Toast.makeText(StorageActivity.this, "An Error has occurred ", Toast.LENGTH_LONG).show();
                     }
                     break;
             }
@@ -101,7 +105,8 @@ public class StorageActivity extends ActionBarActivity {
                 case R.id.btn_storage_open:
                     break;
                 case R.id.btn_storage_save:
-                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                    Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+                    //Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                     intent.addCategory(Intent.CATEGORY_OPENABLE);
                     intent.setType("text/plain");
                     startActivityForResult(intent,SAVE_REQUEST_CODE);

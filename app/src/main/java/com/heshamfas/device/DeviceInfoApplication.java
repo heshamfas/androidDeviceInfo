@@ -47,8 +47,8 @@ public class DeviceInfoApplication extends Application{
     public void onCreate() {
         super.onCreate();
         INSTANCE = DeviceInfoApplication.this;
-/*          *//* configuration *//*
-        Configuration configuration = getResources().getConfiguration();
+          /* configuration */
+       /* Configuration configuration = getResources().getConfiguration();
         screenSmallestWidthDp = configuration.smallestScreenWidthDp;
         screenWidthDp = configuration.screenWidthDp;
         screenHeightDp = configuration.screenHeightDp;

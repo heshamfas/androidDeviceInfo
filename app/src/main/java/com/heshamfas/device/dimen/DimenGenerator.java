@@ -25,6 +25,16 @@ public class DimenGenerator {
 
         return builder.toString();
     }
+    public static String generateDimenFile(int widthDp, int heightDp){
+
+        StringBuilder builder = new StringBuilder("");
+        builder.append(generateFileHead());
+        builder.append(getWidthDimens(widthDp));
+        builder.append((getHeightDimens(heightDp)));
+        builder.append(generateFileEnd());
+
+        return builder.toString();
+    }
 
     private static String getWidthDimens(){
         StringBuilder builder = new StringBuilder("<!-- Width Percentages --> \n");
