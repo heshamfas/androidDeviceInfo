@@ -10,13 +10,13 @@
         android:layout_height="wrap_content"
         android:weightSum="1"
         >
-        <Button
+<!--        <Button
     android:id="@+id/btn_device_goto_storage"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
             android:layout_weight=".3"
     android:text="storage"
-    />
+    />-->
     <Button
         android:id="@+id/btn_device_info"
         android:layout_width="0dp"

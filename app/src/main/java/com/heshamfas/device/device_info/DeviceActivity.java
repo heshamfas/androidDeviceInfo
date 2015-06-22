@@ -16,8 +16,6 @@ import android.widget.Toast;
 
 import com.heshamfas.device.dimen.DimenGenerator;
 import com.heshamfas.device.file_utils.FileManager;
-import com.heshamfas.device.file_utils.StorageActivity;
-
 import java.util.Locale;
 
 
@@ -27,7 +25,6 @@ public class DeviceActivity extends ActionBarActivity {
     private static final int SAVE_REQUEST_CODE=42;
     private static final String FILE_CONTENTS = "file_contents";
     TextView displayInfoTV;
-    Button gotoStorageActivityBtn;
     Button dimenInfoBtn;
     Button deviceInfoBtn;
     Button saveInfoBtn;
@@ -49,11 +46,9 @@ public class DeviceActivity extends ActionBarActivity {
         setContentView(R.layout.activity_device);
         fileSelectorAvailable = getResources().getBoolean(R.bool.bool_file_descriptor_enabled);
         displayInfoTV = (TextView)findViewById(R.id.infoTV);
-        gotoStorageActivityBtn = (Button)findViewById(R.id.btn_device_goto_storage);
         dimenInfoBtn = (Button) findViewById(R.id.btn_dimen_info);
         deviceInfoBtn = (Button) findViewById(R.id.btn_device_info) ;
         saveInfoBtn = (Button) findViewById(R.id.btn_save_info);
-        gotoStorageActivityBtn.setOnClickListener(onClickListener);
         dimenInfoBtn.setOnClickListener(onClickListener);
         deviceInfoBtn.setOnClickListener(onClickListener);
         saveInfoBtn.setOnClickListener(onClickListener);
@@ -245,10 +240,10 @@ public class DeviceActivity extends ActionBarActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()){
-                case R.id.btn_device_goto_storage:
+/*                case R.id.btn_device_goto_storage:
                     Intent intent = new Intent(getBaseContext(), StorageActivity.class);
                     startActivity(intent);
-                    break;
+                    break;*/
                 case R.id.btn_dimen_info:
                     showDimenInfo();
                     break;

@@ -23,10 +23,6 @@
             android:name="com.heshamfas.device.dimen.DimenDisplay"
             android:label="@string/title_activity_dimen_display" >
         </activity>
-        <activity
-            android:name="com.heshamfas.device.file_utils.StorageActivity"
-            android:label="@string/title_activity_storage" >
-        </activity>
     </application>
 
 </manifest>
