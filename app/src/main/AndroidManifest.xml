@@ -19,10 +19,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.heshamfas.device.dimen.DimenDisplay"
-            android:label="@string/title_activity_dimen_display" >
-        </activity>
     </application>
 
 </manifest>

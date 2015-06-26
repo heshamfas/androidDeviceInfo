@@ -80,7 +80,7 @@ public class DeviceActivity extends ActionBarActivity {
         displayInfoTV.setText(dimenFileContents);
         displayMode = DisplayMode.DIMEN_INFO;
     }
-    private void showDeviceInfo(){
+    private void showScreenInfo(){
 
         int screenSmallestWidthDp = configuration.smallestScreenWidthDp;
         int screenWidthDp = configuration.screenWidthDp;
@@ -248,7 +248,7 @@ public class DeviceActivity extends ActionBarActivity {
                     showDimenInfo();
                     break;
                 case R.id.btn_device_info:
-                    showDeviceInfo();
+                    showScreenInfo();
                     break;
                 case R.id.btn_save_info:
                     saveToDevice();
